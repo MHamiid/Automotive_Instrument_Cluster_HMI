@@ -7,6 +7,7 @@
 
 #include "UART.h"
 #include "../../Utilities/registers.h"
+#include "../../Utilities/interrupt.h"
 #include <math.h>
 #include <stdio.h>  // For using size_t
 
@@ -15,6 +16,9 @@
  * (F_CPU * 1.0)  -> for conversion to double
 */
 #define UBRR_FROM_BAUD_RATE(BAUD_RATE) (((F_CPU * 1.0 / (BAUD_RATE* 16UL))) - 1)
+
+/* UART Callback Functions */
+static void(*ON_RECEIVE_CALLBACK_FUNCTION)(uint8_t) = NULL;	// Initialize the function pointer to NULL 
 
 
 void UART_init(uint32_t baudRate)
@@ -60,4 +64,29 @@ void UART_transmitString(const uint8_t* string)
 	
 	// Send the null terminator, so the receiver can determine the end of the string
 	UART_transmit('\0');
+}
+
+void UART_onReceive(void(*onReceiveCallbackFunction)(uint8_t))
+{
+	// Enable RX complete interrupt
+	UCSRB |= (1 << RXCIE);
+	
+	// Enable global interrupt
+	sei();
+	
+	// Set the callback function
+	ON_RECEIVE_CALLBACK_FUNCTION = onReceiveCallbackFunction;
+}
+
+ISR(USART_RECEPTION_COMPLETE_VECTOR)
+{
+	// Safe check that the callback function is not NULL
+	if(ON_RECEIVE_CALLBACK_FUNCTION != NULL)
+	{
+		// Call the callback function with the received byte of data
+		ON_RECEIVE_CALLBACK_FUNCTION(UDR);
+	}
+	
+	// Clear the interrupt flag
+	UCSRA |= (1<<RXC);
 }

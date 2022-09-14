@@ -14,7 +14,7 @@
 # warning "F_CPU not defined for <ATMega32A/MCAL/UART/UART.h>. Using 1 MHz as a default F_CPU"
 
 /**
-  * The value 1 MHz only provided as a "vanilla" fall back 
+  * The value 1 MHz only provided as a fall back 
   * if no user-provided definition could be found
 */
 # define F_CPU 1000000UL
@@ -23,7 +23,7 @@
 #include <stdint.h>
 
 /**
- * @brief Initialize UART in both transmission and reception mode in normal speed mode with frame format of [ 8 data bits | no parity | 1 stop bit ]
+ * @brief Initialize UART(Asynchronous Mode) in both transmission and reception mode in normal speed mode with frame format of [ 8 data bits | no parity | 1 stop bit ]
  * 
  * @param baudRate					Baud rate of UART communication
  *
@@ -63,6 +63,15 @@ void UART_transmit(uint8_t data);
  * @return void
  */
 void UART_transmitString(const uint8_t* string);
+
+/**
+ * @brief Hook a callback function that gets called when a byte reception is complete
+ * 
+ * @param onReceiveCallbackFunction		Callback function that gets called every time a byte is received, where the received byte is passed as a parameter to the function
+ *
+ * @return void
+ */
+void UART_onReceive(void(*onReceiveCallbackFunction)(uint8_t));
 
 
 #endif /* UART_H_ */
