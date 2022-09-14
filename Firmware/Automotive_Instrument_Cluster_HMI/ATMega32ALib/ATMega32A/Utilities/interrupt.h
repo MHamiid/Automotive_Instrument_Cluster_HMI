@@ -21,6 +21,9 @@
 // External interrupt request 2
 #define EXT_INT_2_VECTOR __vector_3
 
+/* USART Interrupt Vectors */
+// USART reception (RX) complete
+#define USART_RECEPTION_COMPLETE_VECTOR __vector_13
 
 
 
