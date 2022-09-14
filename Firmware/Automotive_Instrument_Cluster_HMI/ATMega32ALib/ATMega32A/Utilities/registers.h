@@ -94,5 +94,31 @@
 #define UMSEL	6
 #define URSEL	7
 
+/************************************************************************/
+/* TWI (I2C) Registers                                                  */
+/************************************************************************/
+
+#define TWBR	(*((volatile uint8_t*)0x20))
+#define TWAR	(*((volatile uint8_t*)0x22))
+#define TWDR	(*((volatile uint8_t*)0x23))
+#define TWSR	(*((volatile uint8_t*)0x21))
+/* TWSR Bits */
+#define TWPS0   0
+#define TWPS1   1
+#define TWS3    3
+#define TWS4    4
+#define TWS5    5
+#define TWS6    6
+#define TWS7    7
+#define TWCR	(*((volatile uint8_t*)0x56))
+/* TWCR Bits */
+#define TWIE    0
+#define TWEN    2
+#define TWWC    3
+#define TWSTO   4
+#define TWSTA   5
+#define TWEA    6
+#define TWINT   7
+
 
 #endif /* REGISTERS_H_ */
