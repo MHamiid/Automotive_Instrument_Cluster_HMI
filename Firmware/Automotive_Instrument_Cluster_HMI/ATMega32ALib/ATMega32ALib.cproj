@@ -124,10 +124,17 @@
   <ItemGroup>
     <Folder Include="ATMega32A\" />
     <Folder Include="ATMega32A\MCAL\" />
+    <Folder Include="ATMega32A\MCAL\TWI" />
     <Folder Include="ATMega32A\MCAL\UART\" />
     <Folder Include="ATMega32A\Utilities\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMega32A\MCAL\TWI\TWI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\MCAL\TWI\TWI.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ATMega32A\MCAL\UART\UART.c">
       <SubType>compile</SubType>
     </Compile>
