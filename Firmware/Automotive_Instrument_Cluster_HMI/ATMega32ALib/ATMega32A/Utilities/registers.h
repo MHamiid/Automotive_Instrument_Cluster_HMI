@@ -51,10 +51,33 @@
 /* External Interrupt Registers                                         */
 /************************************************************************/
 
-#define MCUCR	(*((volatile uint8_t*)0x55))
-#define MCUCSR	(*((volatile uint8_t*)0x54))
-#define GICR	(*((volatile uint8_t*)0x5B))
 #define GIFR	(*((volatile uint8_t*)0x5A))
+#define MCUCR	(*((volatile uint8_t*)0x55))
+/* MCUCR Bits */
+#define ISC00   0
+#define ISC01   1
+#define ISC10   2
+#define ISC11   3
+#define SM0     4
+#define SM1     5
+#define SM2     6
+#define SE      7
+#define MCUCSR	(*((volatile uint8_t*)0x54))
+/* MCUCSR Bits */
+#define ISC2    6
+#define PORF    0
+#define EXTRF   1
+#define BORF    2
+#define WDRF    3
+#define JTRF    4
+#define JTD     7
+#define GICR	(*((volatile uint8_t*)0x5B))
+/* GICR Bits */
+#define IVCE    0
+#define IVSEL   1
+#define INT2    5
+#define INT0    6
+#define INT1    7
 
 /************************************************************************/
 /* UART Registers                                                       */
