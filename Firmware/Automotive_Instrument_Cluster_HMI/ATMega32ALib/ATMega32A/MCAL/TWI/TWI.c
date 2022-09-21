@@ -77,7 +77,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart()
 	
 }
 
-EN_TWI_EVENT_STATUS_t TWI_master_transmit_address(uint8_t slaveAddress, uint8_t rw)
+EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint8_t rw)
 {
 	uint8_t TWI_status = 0;
 	

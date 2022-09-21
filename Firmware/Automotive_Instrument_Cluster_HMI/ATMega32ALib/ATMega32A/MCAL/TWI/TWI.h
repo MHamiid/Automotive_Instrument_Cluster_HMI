@@ -140,7 +140,7 @@ void TWI_master_stop();
  * @return TWI_SLAVE_ADDRESS_R_SENT_NACK_RECEIVED				Slave address + Read sent and a NACK received
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_master_transmit_address(uint8_t slaveAddress, uint8_t rw);
+EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint8_t rw);
 
 /**
  * @brief Transmit a byte of data to the addressed slave after the master has entered master transmitter mode
