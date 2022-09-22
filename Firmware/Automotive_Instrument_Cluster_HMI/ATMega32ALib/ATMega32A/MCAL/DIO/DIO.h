@@ -11,11 +11,6 @@
 
 #include <stdint.h>
 
-#define BIT_SET(byte, nbit)			(  (byte) |=  (1<<(nbit)) )
-#define BIT_CLEAR(byte, nbit)		(  (byte) &= ~(1<<(nbit)) )
-#define BIT_TOGGLE(byte, nbit)		(  (byte) ^=  (1<<(nbit)) )
-#define BIT_READ(byte, nbit)		( ((byte) &   (1<<(nbit))) >> nbit )  // Sets the read bit to be either 0 or 1
-
 
 typedef enum EN_DIOPort_t
 {

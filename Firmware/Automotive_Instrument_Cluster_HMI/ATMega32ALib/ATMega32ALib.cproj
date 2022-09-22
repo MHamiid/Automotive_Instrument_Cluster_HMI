@@ -148,6 +148,9 @@
     <Compile Include="ATMega32A\MCAL\UART\UART.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ATMega32A\Utilities\bit.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ATMega32A\Utilities\interrupt.h">
       <SubType>compile</SubType>
     </Compile>

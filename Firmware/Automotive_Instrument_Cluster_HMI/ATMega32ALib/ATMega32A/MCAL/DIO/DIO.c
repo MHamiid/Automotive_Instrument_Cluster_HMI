@@ -8,6 +8,7 @@
 #include "DIO.h"
 #include "../../Utilities/registers.h"
 #include "../../Utilities/interrupt.h"
+#include "../../Utilities/bit.h"
 
 /* External Interrupts Callback Functions */
 static void(*INT0_CALLBACK_FUNCTION)() = 0;
