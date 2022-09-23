@@ -42,10 +42,10 @@
 /* Timer Registers                                                      */
 /************************************************************************/
 
+#define TIFR	(*((volatile uint8_t*)0x58))
 /* Timer 0 */
 #define TCNT0	(*((volatile uint8_t*)0x52))
 #define OCR0	(*((volatile uint8_t*)0x5C))
-#define TIFR	(*((volatile uint8_t*)0x58))
 #define TCCR0	(*((volatile uint8_t*)0x53))
 /* TCCR0 Bits */
 #define CS00    0
@@ -56,6 +56,20 @@
 #define COM01   5
 #define WGM00   6
 #define FOC0    7
+
+/* Timer 2 */
+#define TCNT2	(*((volatile uint8_t*)0x44))
+#define OCR2	(*((volatile uint8_t*)0x43))
+#define TCCR2	(*((volatile uint8_t*)0x45))
+/* TCCR2 Bits */
+#define CS20    0
+#define CS21    1
+#define CS22    2
+#define WGM21   3
+#define COM20   4
+#define COM21   5
+#define WGM20   6
+#define FOC2    7
 
 /************************************************************************/
 /* External Interrupt Registers                                         */
