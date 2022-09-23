@@ -125,6 +125,7 @@
     <Folder Include="ATMega32A\" />
     <Folder Include="ATMega32A\MCAL\" />
     <Folder Include="ATMega32A\MCAL\DIO" />
+    <Folder Include="ATMega32A\MCAL\PWM" />
     <Folder Include="ATMega32A\MCAL\TWI" />
     <Folder Include="ATMega32A\MCAL\UART\" />
     <Folder Include="ATMega32A\Utilities\" />
@@ -134,6 +135,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATMega32A\MCAL\DIO\DIO.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\MCAL\PWM\PWM.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\MCAL\PWM\PWM.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATMega32A\MCAL\TWI\TWI.c">
