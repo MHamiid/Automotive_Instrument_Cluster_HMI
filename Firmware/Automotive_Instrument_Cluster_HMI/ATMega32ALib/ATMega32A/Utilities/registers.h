@@ -38,6 +38,7 @@
 #define DDRD	(*((volatile uint8_t*)0x31))
 #define PIND	(*((volatile uint8_t*)0x30))
 
+
 /************************************************************************/
 /* Timer Registers                                                      */
 /************************************************************************/
@@ -71,6 +72,49 @@
 #define WGM20   6
 #define FOC2    7
 
+
+/************************************************************************/
+/* ADC Registers						                                */
+/************************************************************************/
+
+#define ADCH	(*((volatile uint8_t*)0x25))
+#define ADCL	(*((volatile uint8_t*)0x24))
+#define ADMUX	(*((volatile uint8_t*)0x27))
+/* ADMUX Bits */
+#define MUX0    0
+#define MUX1    1
+#define MUX2    2
+#define MUX3    3
+#define MUX4    4
+#define ADLAR   5
+#define REFS0   6
+#define REFS1   7
+#define ADCSRA	(*((volatile uint8_t*)0x26))
+/* ADCSRA Bits */
+#define ADPS0   0
+#define ADPS1   1
+#define ADPS2   2
+#define ADIE    3
+#define ADIF    4
+#define ADATE   5
+#define ADSC    6
+#define ADEN    7
+
+/* Timer 2 */
+#define TCNT2	(*((volatile uint8_t*)0x44))
+#define OCR2	(*((volatile uint8_t*)0x43))
+#define TCCR2	(*((volatile uint8_t*)0x45))
+/* TCCR2 Bits */
+#define CS20    0
+#define CS21    1
+#define CS22    2
+#define WGM21   3
+#define COM20   4
+#define COM21   5
+#define WGM20   6
+#define FOC2    7
+
+
 /************************************************************************/
 /* External Interrupt Registers                                         */
 /************************************************************************/
@@ -102,6 +146,7 @@
 #define INT2    5
 #define INT0    6
 #define INT1    7
+
 
 /************************************************************************/
 /* UART Registers                                                       */
@@ -140,6 +185,7 @@
 #define UPM1	5
 #define UMSEL	6
 #define URSEL	7
+
 
 /************************************************************************/
 /* TWI (I2C) Registers                                                  */
