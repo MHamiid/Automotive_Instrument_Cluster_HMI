@@ -125,12 +125,19 @@
     <Folder Include="ATMega32A\" />
     <Folder Include="ATMega32A\MCAL\" />
     <Folder Include="ATMega32A\MCAL\DIO" />
+    <Folder Include="ATMega32A\MCAL\ADC" />
     <Folder Include="ATMega32A\MCAL\PWM" />
     <Folder Include="ATMega32A\MCAL\TWI" />
     <Folder Include="ATMega32A\MCAL\UART\" />
     <Folder Include="ATMega32A\Utilities\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMega32A\MCAL\ADC\ADC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\MCAL\ADC\ADC.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ATMega32A\MCAL\DIO\DIO.c">
       <SubType>compile</SubType>
     </Compile>
