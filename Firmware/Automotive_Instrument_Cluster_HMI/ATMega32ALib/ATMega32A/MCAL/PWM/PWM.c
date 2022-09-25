@@ -108,3 +108,19 @@ void PWM_setDutyCycle(uint8_t dutyCycle, EN_PWMTimer_t timer)
 			break;
 	}
 }
+
+void PWM_setDutyValue(uint8_t dutyValue, EN_PWMTimer_t timer)
+{
+	switch(timer)
+	{
+		case PWM_TIMER0:
+			OCR0 = dutyValue;
+		
+			break;
+		
+		case PWM_TIMER2:
+			OCR2 = dutyValue;
+			
+			break;
+	}
+}

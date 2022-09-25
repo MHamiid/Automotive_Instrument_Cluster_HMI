@@ -48,5 +48,15 @@ void PWM_init(EN_PWMTimer_t timer, EN_PWMMode_t mode);
  */
 void PWM_setDutyCycle(uint8_t dutyCycle, EN_PWMTimer_t timer);
 
+/**
+ * @brief Set the duty cycle value directly in the (OCRx) register for the specified Timer which has been initialized in a PWM mode
+ * 
+ * @param dutyValue				Duty cycle value in range [0 : 255]
+ * @param timer					Timer that is initialized in a PWM mode
+ *
+ * @return void
+ */
+void PWM_setDutyValue(uint8_t dutyValue, EN_PWMTimer_t timer);
+
 
 #endif /* PWM_H_ */
