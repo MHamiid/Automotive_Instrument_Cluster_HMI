@@ -32,7 +32,7 @@
  *
  * @return void
  */
-void ServoMotor_init(EN_PWMTimer_t timer);
+void servoMotor_init(EN_PWMTimer_t timer);
 
 /**
  * @brief Set servo motor rotation angle by outputting the corresponding PWM duty cycle
@@ -42,7 +42,7 @@ void ServoMotor_init(EN_PWMTimer_t timer);
  *
  * @return void
  */
-void ServoMotor_setRotationAngle(int8_t rotationAngle, EN_PWMTimer_t timer);
+void servoMotor_setRotationAngle(int8_t rotationAngle, EN_PWMTimer_t timer);
 
 /**
  * @brief Set servo motor PWM duty value directly in the (OCRx) register
@@ -52,7 +52,7 @@ void ServoMotor_setRotationAngle(int8_t rotationAngle, EN_PWMTimer_t timer);
  *
  * @return void
  */
-void ServoMotor_setRotationAngleValue(uint8_t rotationAngleValue, EN_PWMTimer_t timer);
+void servoMotor_setRotationAngleValue(uint8_t rotationAngleValue, EN_PWMTimer_t timer);
 
 
 #endif /* SERVOMOTOR_H_ */
