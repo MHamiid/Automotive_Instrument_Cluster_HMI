@@ -361,6 +361,14 @@ EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data)
 	}
 }
 
+uint8_t TWI_getStatus()
+{
+	// Read the TWI status
+	uint8_t TWI_status = (TWSR & TWI_TWSR_STATUS_BITS_MASK);
+	
+	return TWI_status;	
+}
+
 void TWI_setInterruptCallback(void(*callbackFunction)())
 {
 	// Enable global interrupts
