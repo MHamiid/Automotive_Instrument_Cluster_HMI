@@ -99,6 +99,9 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint
 	// Clear TWINT flag to start a new event operation | Enable TWI
 	TWCR |= (1<<TWINT) | (1<<TWEN);
 	
+	// Make sure that TWSTA and TWSTO are zeros
+	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
+
 	// Wait until TWI finish its current job/event
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
 	
@@ -138,6 +141,9 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data)
 	// Clear TWINT flag to start a new event operation | Enable TWI
 	TWCR |= (1<<TWINT) | (1<<TWEN);
 	
+	// Make sure that TWSTA and TWSTO are zeros
+	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
+	
 	// Wait until TWI finish its current job/event
 	while(!(TWCR&(1<<TWINT)));		// Busy wait
 	
@@ -172,6 +178,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response
 	{
 		// Clear TWINT flag to start a new event operation | Enable TWI
 		TWCR |= (1<<TWINT) | (1<<TWEN);
+		
 		// Enable Generation of NACK when data is received
 		TWCR &= ~(1<<TWEA);
 	}
@@ -180,6 +187,9 @@ EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response
 		// Invalid ACK status
 		return TWI_INVALID_OPERATION;
 	}
+	
+	// Make sure that TWSTA and TWSTO are zeros
+	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
 	
 	// Wait until TWI finish its current job/event
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
