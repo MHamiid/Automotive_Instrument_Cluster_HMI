@@ -361,6 +361,11 @@ EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data)
 	}
 }
 
+uint8_t TWI_getDataRegister()
+{
+	return TWDR;
+}
+
 uint8_t TWI_getStatus()
 {
 	// Read the TWI status

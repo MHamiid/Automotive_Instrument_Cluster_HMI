@@ -229,6 +229,13 @@ EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response)
 EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data);
 
 /**
+ * @brief Return the TWI data register
+ *
+ * @return			TWI data register value
+ */
+uint8_t TWI_getDataRegister();
+
+/**
  * @brief Return the current TWI status
  *
  * @return			Current TWI status
