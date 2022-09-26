@@ -7,7 +7,11 @@
 
 #include "TWI.h"
 #include "../../Utilities/registers.h"
+#include "../../Utilities/interrupt.h"
 #include <math.h>
+
+/* TWI Interrupt Callback Function */
+static void(*TWI_INTERRUPT_CALLBACK_FUNCTION)() = 0;		// Initialize
 
 /**
  * Calculate the value for the TWSR register from the SCL frequency, F_CPU, and the TWI pre-scaler(TWPS0, TWPS1)
@@ -354,5 +358,26 @@ EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data)
 	else
 	{
 		return TWI_UNHANDLED_EVENT;
+	}
+}
+
+void TWI_setInterruptCallback(void(*callbackFunction)())
+{
+	// Enable global interrupts
+	sei();
+	
+	// Enable TWI interrupt
+	TWCR |= (1 << TWIE);
+	 
+	// Set the callback function
+	TWI_INTERRUPT_CALLBACK_FUNCTION = callbackFunction;
+}
+
+ISR(TWI_VECTOR)
+{
+	// Make sure that the callback function is not NULL
+	if(TWI_INTERRUPT_CALLBACK_FUNCTION != 0)
+	{
+		TWI_INTERRUPT_CALLBACK_FUNCTION();
 	}
 }

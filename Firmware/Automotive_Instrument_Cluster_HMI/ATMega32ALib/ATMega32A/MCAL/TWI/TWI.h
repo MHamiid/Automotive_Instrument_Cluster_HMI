@@ -228,5 +228,16 @@ EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response)
  */
 EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data);
 
+/**
+ * @brief Set a callback function to be called inside the ISR for TWI interrupt
+ *
+ * Function enables the TWI interrupt and the global interrupts
+ * 
+ * @param callbackFunction				void function will be called when the ISR for the TWI interrupt is called
+ *
+ * @return void
+ */
+void TWI_setInterruptCallback(void(*callbackFunction)());
+
 
 #endif /* TWI_H_ */
