@@ -42,10 +42,16 @@ void TWI_slave_init(uint8_t slaveAddress)
 	TWAR = slaveAddress;
 }
 
-EN_TWI_EVENT_STATUS_t TWI_master_start()
+EN_TWI_EVENT_STATUS_t TWI_master_start(bool interruptHandled)
 {
 	// Clear TWINT flag to start a new event operation | Generate start condition event | Enable TWI
 	TWCR |= (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+	
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
 	
 	// Wait until TWI finish its current job/event
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
@@ -61,10 +67,16 @@ EN_TWI_EVENT_STATUS_t TWI_master_start()
 	}
 }
 
-EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart()
+EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart(bool interruptHandled)
 {
 	// Clear TWINT flag to start a new event operation | Generate start condition event | Enable TWI
 	TWCR |= (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+	
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}	
 	
 	// Wait until TWI finish its current job/event
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
@@ -81,7 +93,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart()
 	
 }
 
-EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint8_t rw)
+EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint8_t rw, bool interruptHandled)
 {
 	uint8_t TWI_status = 0;
 	
@@ -105,6 +117,12 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint
 	
 	// Make sure that TWSTA and TWSTO are zeros
 	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
+	
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
 
 	// Wait until TWI finish its current job/event
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
@@ -135,7 +153,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint
 	
 }
 
-EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data)
+EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data, bool interruptHandled)
 {
 	uint8_t TWI_status = 0;
 
@@ -148,6 +166,12 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data)
 	// Make sure that TWSTA and TWSTO are zeros
 	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
 	
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
+
 	// Wait until TWI finish its current job/event
 	while(!(TWCR&(1<<TWINT)));		// Busy wait
 	
@@ -169,7 +193,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data)
 	}
 }
 
-EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response)
+EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response, bool interruptHandled)
 {
 	uint8_t TWI_status = 0;
 
@@ -194,6 +218,12 @@ EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response
 	
 	// Make sure that TWSTA and TWSTO are zeros
 	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
+
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
 	
 	// Wait until TWI finish its current job/event
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
@@ -219,16 +249,22 @@ EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response
 	}
 }
 
-void TWI_master_stop()
+void TWI_master_stop(bool interruptHandled)
 {
 	// Clear TWINT flag to start a new event operation | Generate stop condition event | Enable TWI
 	TWCR |= (1<<TWINT) | (1<<TWSTO) | (1<<TWEN);
+	
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
 	
 	// Wait until stop condition execution (TWSTO is cleared after execution)
 	while(TWCR & (1<<TWSTO));		// Busy wait
 }
 
-EN_TWI_EVENT_STATUS_t TWI_slave_listen()
+EN_TWI_EVENT_STATUS_t TWI_slave_listen(bool interruptHandled)
 {
 	uint8_t TWI_status = 0;
 
@@ -237,7 +273,13 @@ EN_TWI_EVENT_STATUS_t TWI_slave_listen()
 	
 	// Make sure that TWSTA and TWSTO are zeros
 	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
-	
+
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
+
 	// Wait until the device is being addressed
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
 	
@@ -266,7 +308,7 @@ EN_TWI_EVENT_STATUS_t TWI_slave_listen()
 	
 }
 
-EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response)
+EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response, bool interruptHandled)
 {
 	uint8_t TWI_status = 0;
 	
@@ -290,6 +332,12 @@ EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response)
 	
 	// Make sure that TWSTA and TWSTO are zeros
 	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
+	
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
 	
 	// Wait until data is received
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
@@ -321,7 +369,7 @@ EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response)
 	}
 }
 
-EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data)
+EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data, bool interruptHandled)
 {
 	uint8_t TWI_status = 0;
 
@@ -333,7 +381,13 @@ EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data)
 	
 	// Make sure that TWSTA and TWSTO are zeros
 	TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
-	
+
+	// Return from function and to not wait for the operation/event to be finished (to not wait for the TWIINT flag to be set). Reading the operation/event TWI status should be handled in TWI ISR
+	if(interruptHandled)
+	{
+		return TWI_INTERRUPT_HANDLED;
+	}
+
 	// Wait until data is transmitted
 	while(!(TWCR & (1<<TWINT)));		// Busy wait
 	

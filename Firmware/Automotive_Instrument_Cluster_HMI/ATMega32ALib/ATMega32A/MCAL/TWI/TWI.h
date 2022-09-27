@@ -21,6 +21,7 @@
 #endif
 
 #include <stdint.h>
+#include <stdbool.h>
 
 // Mask for TWSR status 5-bits, the higher 5-bits
 #define TWI_TWSR_STATUS_BITS_MASK 0xF8
@@ -59,6 +60,7 @@ typedef enum EN_TWI_EVENT_STATUS_t
 {
 	TWI_INVALID_OPERATION,
 	TWI_UNHANDLED_EVENT,
+	TWI_INTERRUPT_HANDLED,
 	/* Master Events */
 	TWI_START_SENT,
 	TWI_REPEATED_START_SENT,
@@ -97,11 +99,14 @@ void TWI_master_init(uint32_t SCLFrequency);
  * @brief Transmit a START condition as soon as the bus becomes free
  *
  * Function is called after TWI has been initialized in master mode
+ *
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
  * 
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_START_SENT										START condition has been transmitted
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_master_start();
+EN_TWI_EVENT_STATUS_t TWI_master_start(bool interruptHandled);
 
 /**
  * @brief Transmit a REPEATED START condition
@@ -111,19 +116,25 @@ EN_TWI_EVENT_STATUS_t TWI_master_start();
  * REPEATED START enables the master to switch between slaves,
  * master transmitter mode and master receiver mode without losing control of the bus
  *
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
+ *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_REPEATED_START_SENT								REPEATED START condition has been transmitted
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart();
+EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart(bool interruptHandled);
 
 /**
  * @brief Transmit a STOP condition
  * 
  * STOP releases the bus and ends the communication 
  *
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
+ *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return void
  */
-void TWI_master_stop();
+void TWI_master_stop(bool interruptHandled);
 
 /**
  * @brief Transmit the 7-bit address of the slave to start communication with, and the read/write bit
@@ -133,14 +144,16 @@ void TWI_master_stop();
  *
  * @param slaveAddress											Slave's 7-bit address that the master wants to start communication with
  * @param rw													TWI_WRITE_BIT for master transmit operation. TWI_READ_BIT for master receive operation
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
  *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_SLAVE_ADDRESS_W_SENT_ACK_RECEIVED				Slave address + Write sent and an ACK received
  * @return TWI_SLAVE_ADDRESS_W_SENT_NACK_RECEIVED				Slave address + Write sent and a NACK received
  * @return TWI_SLAVE_ADDRESS_R_SENT_ACK_RECEIVED				Slave address + Read sent and an ACK received
  * @return TWI_SLAVE_ADDRESS_R_SENT_NACK_RECEIVED				Slave address + Read sent and a NACK received
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint8_t rw);
+EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint8_t rw, bool interruptHandled);
 
 /**
  * @brief Transmit a byte of data to the addressed slave after the master has entered master transmitter mode
@@ -148,12 +161,14 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmitSlaveAddress(uint8_t slaveAddress, uint
  * Function is called after the slave address + write has been sent by the master (Master transmitter mode entered).
  *
  * @param data													A byte of data to be transmitted to addressed slave
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
  *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_MASTER_DATA_SENT_ACK_RECEIVED					Data sent and an ACK received
  * @return TWI_MASTER_DATA_SENT_NACK_RECEIVED					Data sent and a NACK received
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data);
+EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data, bool interruptHandled);
 
 /**
  * @brief Receive a byte of data from the addressed slave after the master has entered master receiver mode
@@ -162,15 +177,17 @@ EN_TWI_EVENT_STATUS_t TWI_master_transmit(uint8_t data);
  * Master should inform the transmitting slave by sending a TWI_NACK as a response after the last received data byte,
  * the transfer is then ended by generating a STOP condition or a REPEATED START condition
  *
- * @param receivedData											A byte of data received from addressed slave
+ * @param receivedData											A byte of data received from addressed slave (Only data is written when @param interruptHandled is set to false. And the parameter can be passed as NULL, as it has no usage is this case)
  * @param response												Master response to the received data. Can be [TWI_ACK, TWI_NACK]
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
  *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_INVALID_OPERATION								Invalid @param response used
  * @return TWI_MASTER_DATA_RECEIVED_ACK_SENT					Data received and an ACK sent
  * @return TWI_MASTER_DATA_RECEIVED_NACK_SENT					Data received and an NACK sent
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response);
+EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response, bool interruptHandled);
 
 /**
  * @brief Initialize TWI in slave mode
@@ -187,12 +204,15 @@ void TWI_slave_init(uint8_t slaveAddress);
  * Function is called after TWI has been initialized in slave mode
  * Slave receiver mode is entered if own slave address + write is received, otherwise slave transmitter mode is entered if own slave address + read is received
  *
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
+ *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true 
  * @return TWI_SLAVE_ADDRESS_W_RECEIVED							Own slave address + Write received and an ACK sent
  * @return TWI_SLAVE_ADDRESS_R_RECEIVED							Own slave address + Read received and an ACK sent
  * @return TWI_GENERAL_ADDRESS_RECEIVED							General call address received and an ACK sent
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_slave_listen();
+EN_TWI_EVENT_STATUS_t TWI_slave_listen(bool interruptHandled);
 
 /**
  * @brief Receive a byte of data from the master after the slave has entered slave receiver mode
@@ -201,16 +221,18 @@ EN_TWI_EVENT_STATUS_t TWI_slave_listen();
  * Slave receiver can send TWI_NACK to be used as a response to indicate that the slave is not able to receive any more bytes from the master,
  * the transfer is then ended by receiving a STOP condition or a REPEATED START condition
  *
- * @param receivedData											A byte of data received from master
+ * @param receivedData											A byte of data received from master (Only data is written when @param interruptHandled is set to false. And the parameter can be passed as NULL, as it has no usage is this case)
  * @param response												Slave response to the received data. Can be [TWI_ACK, TWI_NACK]
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
  *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_INVALID_OPERATION								Invalid @param response used
  * @return TWI_SLAVE_DATA_RECEIVED_ACK_SENT						Data received and an ACK sent
  * @return TWI_SLAVE_DATA_RECEIVED_NACK_SENT					Data received and an NACK sent
  * @return TWI_SLAVE_STO_RSTA_RECEIVED							STOP or REPEATED START condition received
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response);
+EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response, bool interruptHandled);
 
 /**
  * @brief Transmit a byte of data to the master after the slave has entered slave transmitter mode
@@ -220,13 +242,15 @@ EN_TWI_EVENT_STATUS_t TWI_slave_receive(uint8_t* receivedData, uint8_t response)
  * the transfer is then ended by receiving a STOP condition or a REPEATED START condition
  *
  * @param data													A byte of data to be transmitted to the master
+ * @param interruptHandled										Set to true to stop waiting for the operation/event to finish (stop waiting for TWI interrupt flag to be set), indicating that the interrupt is handled in the TWI ISR **No Busy Wait**
  *
+ * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return TWI_SLAVE_DATA_SENT_ACK_RECEIVED						Data sent and an ACK received
  * @return TWI_SLAVE_DATA_SENT_NACK_RECEIVED					Data sent and an NACK received
  * @return TWI_SLAVE_STO_RSTA_RECEIVED							STOP or REPEATED START condition received
  * @return TWI_UNHANDLED_EVENT									Received unexpected status code
  */
-EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data);
+EN_TWI_EVENT_STATUS_t TWI_slave_transmit(uint8_t data, bool interruptHandled);
 
 /**
  * @brief Return the TWI data register
