@@ -10,6 +10,9 @@
 #include "../../Utilities/registers.h"
 #include "../../Utilities/bit.h"
 
+// Mask for ADMUX Mux 5-bits, the lower 5-bits
+#define ADC_ADMUX_CHANNEL_SELECTION_BITS_MASK 0x1F
+
 void ADC_init(EN_ADCChannel_t channel)
 {
 	// Set ADC channel pin to be input
@@ -33,7 +36,10 @@ uint16_t ADC_read(EN_ADCChannel_t channel)
 {
 	uint16_t ADCResult = 0;
 	
-	// Select ADC single ended input channel to read
+	/* Select ADC single ended input channel to read */
+	// Clear the existing channel (ADMUXx 5-bits) first
+	ADMUX &= ~(ADC_ADMUX_CHANNEL_SELECTION_BITS_MASK);
+	// Set the ADC channel
 	ADMUX |= (channel<<MUX0);
 	
 	// Start ADC conversion
