@@ -125,6 +125,7 @@
     <Folder Include="ATMega32A\" />
     <Folder Include="ATMega32A\ECUAL\Motor" />
     <Folder Include="ATMega32A\ECUAL\Accelerometer" />
+    <Folder Include="ATMega32A\ECUAL\LM35" />
     <Folder Include="ATMega32A\ECUAL\ServoMotor" />
     <Folder Include="ATMega32A\MCAL\" />
     <Folder Include="ATMega32A\MCAL\DIO" />
@@ -140,6 +141,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATMega32A\ECUAL\Accelerometer\Accelerometer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\ECUAL\LM35\LM35.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\ECUAL\LM35\LM35.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATMega32A\ECUAL\Motor\Motor.c">
