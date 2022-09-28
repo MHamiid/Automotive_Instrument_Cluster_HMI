@@ -47,5 +47,7 @@ void motor_start(EN_ADCChannel_t channel, EN_PWMTimer_t timer);
  */
 void motor_stop(EN_PWMTimer_t timer);
 
+uint8_t motor_getDutyCycle();
+
 
 #endif /* MOTOR_H_ */
