@@ -6,11 +6,17 @@
  */ 
 
 
+#include "Application/Application.h"
+
 
 int main(void)
 {
-    while (1) 
-    {
-    }
+	application_init();
+	
+	while (1)
+	{
+		application_loop();
+	}
+	
+	return 0;
 }
-
