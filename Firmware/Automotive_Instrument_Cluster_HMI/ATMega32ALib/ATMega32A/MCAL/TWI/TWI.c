@@ -249,7 +249,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_receive(uint8_t* receivedData, uint8_t response
 	}
 }
 
-void TWI_master_stop(bool interruptHandled)
+EN_TWI_EVENT_STATUS_t TWI_master_stop(bool interruptHandled)
 {
 	// Clear TWINT flag to start a new event operation | Generate stop condition event | Enable TWI
 	TWCR |= (1<<TWINT) | (1<<TWSTO) | (1<<TWEN);
@@ -262,6 +262,9 @@ void TWI_master_stop(bool interruptHandled)
 	
 	// Wait until stop condition execution (TWSTO is cleared after execution)
 	while(TWCR & (1<<TWSTO));		// Busy wait
+	
+	// A return to make sure that the function always returns a value in all cases 
+	return TWI_STOP_SENT;
 }
 
 EN_TWI_EVENT_STATUS_t TWI_slave_listen(bool interruptHandled)

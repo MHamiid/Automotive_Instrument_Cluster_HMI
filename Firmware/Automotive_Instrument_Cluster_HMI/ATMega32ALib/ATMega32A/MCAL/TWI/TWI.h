@@ -64,6 +64,7 @@ typedef enum EN_TWI_EVENT_STATUS_t
 	/* Master Events */
 	TWI_START_SENT,
 	TWI_REPEATED_START_SENT,
+	TWI_STOP_SENT,		// Has no status code
 	TWI_SLAVE_ADDRESS_W_SENT_ACK_RECEIVED,
 	TWI_SLAVE_ADDRESS_W_SENT_NACK_RECEIVED,
 	TWI_SLAVE_ADDRESS_R_SENT_ACK_RECEIVED,
@@ -134,7 +135,7 @@ EN_TWI_EVENT_STATUS_t TWI_master_repeatedStart(bool interruptHandled);
  * @return TWI_INTERRUPT_HANDLED								Always returned when @param interruptHandled is set to true
  * @return void
  */
-void TWI_master_stop(bool interruptHandled);
+EN_TWI_EVENT_STATUS_t TWI_master_stop(bool interruptHandled);
 
 /**
  * @brief Transmit the 7-bit address of the slave to start communication with, and the read/write bit
