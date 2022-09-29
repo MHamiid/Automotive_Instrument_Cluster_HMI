@@ -105,7 +105,10 @@ static void TWIInterruptCallback()
 	{
 		// Get the received internal device address from master
 		gs_currentlyAddressedDevice = TWI_getDataRegister();
-		
+	}
+	// Received STOP or REPEATED START condition
+	else if(TWI_status == TWI_SLAVE_STO_RSTA_RECEIVED)
+	{
 		// Listen for own slave address on the TWI bus. And handle TWI status in the interrupt callback function
 		TWI_slave_listen(true);
 	}
@@ -114,21 +117,20 @@ static void TWIInterruptCallback()
 
 void application_init()
 {
+	motor_init(ADC_CHANNEL_0, PWM_TIMER2);
+	accelerometer_init(ADC_CHANNEL_1);
+	LM35_init(ADC_CHANNEL_2);
+	
 	// Initialize TWI in slave mode with own slave address 0xA0
 	TWI_slave_init(0xA0);
 	// Set TWI interrupt callback function
 	TWI_setInterruptCallback(TWIInterruptCallback);
-	
-	motor_init(ADC_CHANNEL_0, PWM_TIMER2);
-	accelerometer_init(ADC_CHANNEL_1);
-	LM35_init(ADC_CHANNEL_2);
+	// Start listening for own slave address on the TWI bus. And handle TWI status in the interrupt callback function
+	TWI_slave_listen(true);
 }
 
 void application_loop()
 {
-	// Start listening for own slave address on the TWI bus. And handle TWI status in the interrupt callback function
-	TWI_slave_listen(true);
-	
 	motor_start(ADC_CHANNEL_0, PWM_TIMER2);
 	gs_accelerometerValue = accelerometer_read(ADC_CHANNEL_1);
 	gs_temperatureValue = LM35_read(ADC_CHANNEL_2);
