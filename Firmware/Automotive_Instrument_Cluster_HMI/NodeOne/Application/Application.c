@@ -12,9 +12,9 @@
 #include <ATMega32A/ECUAL/Accelerometer/Accelerometer.h>
 #include <ATMega32A/ECUAL/LM35/LM35.h>
 
-#define DEVICE_INTERNAL_ADDRESS_MOTOR 0x01
-#define DEVICE_INTERNAL_ADDRESS_ACCELEROMETER 0x02
-#define DEVICE_INTERNAL_ADDRESS_LM35 0x03
+#define DEVICE_INTERNAL_ADDRESS_MOTOR			 0x01
+#define DEVICE_INTERNAL_ADDRESS_ACCELEROMETER	 0x02
+#define DEVICE_INTERNAL_ADDRESS_LM35			 0x03
 
 static float gs_accelerometerValue = 0.0f;
 static float gs_temperatureValue = 0.0f;
@@ -22,8 +22,11 @@ static uint8_t gs_currentlyAddressedDevice = 0x00;
 static uint8_t* bytePtrToFloat = 0x00;	// Points to the current byte to be transmitted of the four bytes of a float type
 
 /**
- * TWI slave after being addressed by master reads device's internal address from master and send the current status of that device to master
- * TWI slave handles the following frames:
+ * @brief Handle TWI interrupts. Called inside TWI ISR
+ *
+ * As a TWI slave after being addressed by master reads device's internal address from master and send the current status of that device to master
+ *
+ * TWI slave handles the following frames in the TWI ISR:
  *
  * START CONDITION -> Own slave address + Write -> DEVICE_INTERNAL_ADDRESS_MOTOR -> ACK -> REPEATED START CONDITION/STOP + START CONDITION
  * -> Own slave address + Read -> ACK -> Motor PWM duty cycle -> NACK -> STOP CONDITION
@@ -34,8 +37,8 @@ static uint8_t* bytePtrToFloat = 0x00;	// Points to the current byte to be trans
  * START CONDITION -> Own slave address + Write -> DEVICE_INTERNAL_ADDRESS_LM35 -> ACK -> REPEATED START CONDITION/STOP + START CONDITION
  * -> Own slave address + Read -> ACK -> temperatue first byte -> ACK -> temperatue second byte -> ACK -> temperatue thrid byte -> ACK -> temperatue fourth/last byte -> NACK -> STOP CONDITION
  *
-*/
-/* Handle TWI interrupts */
+ * @return void
+ */
 static void TWIInterruptCallback()
 {
 	// Get the current TWI status
