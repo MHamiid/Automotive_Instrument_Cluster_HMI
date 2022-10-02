@@ -9,6 +9,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATMega32ALib", "ATMega32ALi
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "NodeOne", "NodeOne\NodeOne.cproj", "{D3F7801A-8B2B-4F0D-A330-97D08D67AFB9}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "NodeTwo", "NodeTwo\NodeTwo.cproj", "{717814C9-FFE6-466D-AAB1-50367F1AF658}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -27,6 +29,10 @@ Global
 		{D3F7801A-8B2B-4F0D-A330-97D08D67AFB9}.Debug|AVR.Build.0 = Debug|AVR
 		{D3F7801A-8B2B-4F0D-A330-97D08D67AFB9}.Release|AVR.ActiveCfg = Release|AVR
 		{D3F7801A-8B2B-4F0D-A330-97D08D67AFB9}.Release|AVR.Build.0 = Release|AVR
+		{717814C9-FFE6-466D-AAB1-50367F1AF658}.Debug|AVR.ActiveCfg = Debug|AVR
+		{717814C9-FFE6-466D-AAB1-50367F1AF658}.Debug|AVR.Build.0 = Debug|AVR
+		{717814C9-FFE6-466D-AAB1-50367F1AF658}.Release|AVR.ActiveCfg = Release|AVR
+		{717814C9-FFE6-466D-AAB1-50367F1AF658}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
