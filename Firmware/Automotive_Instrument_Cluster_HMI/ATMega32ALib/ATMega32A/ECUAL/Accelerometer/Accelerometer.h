@@ -27,7 +27,7 @@ void accelerometer_init(EN_ADCChannel_t channel);
  *
  * @param channel				ADC single ended input channel that the accelerometer is connected to
  *
- * @return void
+ * @return Accelerometer reading in (g) [ -1.0f g : 1.0f g ]
  */
 float accelerometer_read(EN_ADCChannel_t channel);
 
