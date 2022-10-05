@@ -32,10 +32,10 @@ static uint8_t* bytePtrToFloat = 0x00;	// Points to the current byte to be trans
  * -> Own slave address + Read -> ACK -> Motor PWM duty cycle -> NACK -> STOP CONDITION
  *
  * START CONDITION -> Own slave address + Write -> DEVICE_INTERNAL_ADDRESS_ACCELEROMETER -> ACK -> REPEATED START CONDITION/STOP + START CONDITION
- * -> Own slave address + Read -> ACK -> Accelerometer first byte -> ACK -> Accelerometer second byte -> ACK -> Accelerometer thrid byte -> ACK -> Accelerometer fourth/last byte -> NACK -> STOP CONDITION
+ * -> Own slave address + Read -> ACK -> Accelerometer first byte -> ACK -> Accelerometer second byte -> ACK -> Accelerometer third byte -> ACK -> Accelerometer fourth/last byte -> NACK -> STOP CONDITION
  *
  * START CONDITION -> Own slave address + Write -> DEVICE_INTERNAL_ADDRESS_LM35 -> ACK -> REPEATED START CONDITION/STOP + START CONDITION
- * -> Own slave address + Read -> ACK -> temperatue first byte -> ACK -> temperatue second byte -> ACK -> temperatue thrid byte -> ACK -> temperatue fourth/last byte -> NACK -> STOP CONDITION
+ * -> Own slave address + Read -> ACK -> temperatue first byte -> ACK -> temperatue second byte -> ACK -> temperatue third byte -> ACK -> temperatue fourth/last byte -> NACK -> STOP CONDITION
  *
  * @return void
  */
