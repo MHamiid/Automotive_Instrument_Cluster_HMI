@@ -8,6 +8,7 @@ Window
     height: 480
     visible: true
     title: "Automotive Instrument Cluster HMI"
+    color: "black"
 
     Rectangle
     {
@@ -29,6 +30,7 @@ Window
             anchors.topMargin: 70
             anchors.horizontalCenter: parent.horizontalCenter
             text: speedometer.speed
+            color: "white"
             font.pixelSize: 80
             antialiasing: true
 
