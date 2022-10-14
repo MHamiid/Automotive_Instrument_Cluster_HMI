@@ -1,5 +1,4 @@
 #include "serial.h"
-#include <QDebug>
 
 #define DEVICE_DATA_FRAME_START_DELIMITER '|'
 #define DEVICE_DATA_FRAME_END_DELIMITER '\r'
