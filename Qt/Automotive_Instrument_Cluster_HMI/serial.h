@@ -50,7 +50,7 @@ Q_SIGNALS:
 private:
     /*
      * Buffer size = Max device data frame size:
-     *          1 byte for the device address, 4 bytes max for devices's data(as float is 4 bytes) ,or 1 byte, and 1 byte for the MESSAGE_END_DELIMITER
+     *          1 byte for the device address, 4 bytes max for devices's data(as float is 4 bytes) ,or 1 byte, and 1 byte for the DEVICE_DATA_FRAME_END_DELIMITER
      *
      * Note that DEVICE_DATA_FRAME_START_DELIMITER gets always overridden in the buffer by the first
      * byte of the device data, as such there is no space allocated in the buffer for it.
