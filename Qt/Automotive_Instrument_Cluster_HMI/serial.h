@@ -24,7 +24,7 @@ public:
     Serial(QObject* parent = nullptr);
 
     /*
-     * @brief [SLOT] Read and parse device date frame from the serial port
+     * @brief [SLOT] Read and parse device data frame from the serial port
      *
      * This slot is connected to [SIGNAL] QIODevice::readyRead()
      * And emits [SIGNAL] deviceDataAvailable() when a complete device data frame is received
