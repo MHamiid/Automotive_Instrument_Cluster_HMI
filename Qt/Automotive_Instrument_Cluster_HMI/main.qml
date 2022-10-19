@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
+import Serial
 
 Window
 {
@@ -23,6 +24,23 @@ Window
         border.color: "lightgreen"
         border.width: 5
 
+        Serial
+        {
+            id: serial
+            baudRate: Serial.Baud4800
+            dataBits: Serial.Data8
+            parity: Serial.NoParity
+            stopBits: Serial.OneStop
+            portName:"COM1"
+            openMode: 0x0001 | 0x0002  // Open in ReadWrite mode
+            onDeviceDataAvailable:
+                function (device)
+                {
+                    var deviceAddress = device[0]
+                    var deviceData = device[1]
+                }
+        }
+
         Text
         {
             id: speed
@@ -33,7 +51,6 @@ Window
             color: "white"
             font.pixelSize: 80
             antialiasing: true
-
 
             Text
             {
