@@ -13,7 +13,7 @@ Window
 
     Rectangle
     {
-        property int speed: 120
+        property real velocity: 0
         id: speedometer
         width: 300
         height: 300
@@ -26,6 +26,7 @@ Window
 
         Serial
         {
+            property real accelerometer: 0
             id: serial
             baudRate: Serial.Baud4800
             dataBits: Serial.Data8
@@ -38,16 +39,40 @@ Window
                 {
                     var deviceAddress = device[0]
                     var deviceData = device[1]
+
+                    if(deviceAddress === Serial.DEVICE_INTERNAL_ADDRESS_ACCELEROMETER)
+                    {
+                        // Set the data
+                        accelerometer = deviceData
+                    }
                 }
+        }
+
+        Timer {
+            id: timer
+            interval: 1000 // Update every 1 second
+            repeat: true
+            running: true
+
+            onTriggered:
+            {
+                // Convert (G)s to (km/h)/s
+                var KMHPerS = serial.accelerometer * 35.30394
+
+                // Update the current velocity
+                speedometer.velocity = speedometer.velocity + KMHPerS
+            }
         }
 
         Text
         {
+            // Convert the velocity to speed (get the absolute value) and round the result to int
+            property int speedValue: Math.abs(speedometer.velocity)
             id: speed
             anchors.top: parent.top
             anchors.topMargin: 70
             anchors.horizontalCenter: parent.horizontalCenter
-            text: speedometer.speed
+            text: speedValue
             color: "white"
             font.pixelSize: 80
             antialiasing: true
