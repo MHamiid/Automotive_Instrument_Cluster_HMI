@@ -8,8 +8,11 @@
 
 #include "Application.h"
 #include <ATMega32A/MCAL/TWI/TWI.h>
+#include <ATMega32A/MCAL/UART/UART.h>
 #include <stdint.h>
 
+#define DEVICE_DATA_FRAME_START_DELIMITER '|'
+#define DEVICE_DATA_FRAME_END_DELIMITER '\r'
 #define DEVICE_INTERNAL_ADDRESS_MOTOR			 0x01
 #define DEVICE_INTERNAL_ADDRESS_ACCELEROMETER	 0x02
 #define DEVICE_INTERNAL_ADDRESS_LM35			 0x03
@@ -122,6 +125,8 @@ void application_init()
 {
 	// Initialize TWI in master mode with the SCL frequency
 	TWI_master_init(1000);
+	// Initialize UART with 4800 baud rate
+	UART_init(4800);
 }
 
 void application_loop()
@@ -129,4 +134,20 @@ void application_loop()
 	// TWIGetSlaveInternalDeviceData(0xA0, DEVICE_INTERNAL_ADDRESS_MOTOR).byteData;
 	// TWIGetSlaveInternalDeviceData(0xA0, DEVICE_INTERNAL_ADDRESS_ACCELEROMETER).floatData;	
 	// TWIGetSlaveInternalDeviceData(0xA0, DEVICE_INTERNAL_ADDRESS_LM35).floatData;
+	
+	uint8_t* byteDataArray  = 0;
+	
+	/* Transmit accelerometer device frame */
+	// Transmit start of frame
+	UART_transmit(DEVICE_DATA_FRAME_START_DELIMITER);
+	UART_transmit(DEVICE_INTERNAL_ADDRESS_ACCELEROMETER);
+	byteDataArray = TWIGetSlaveInternalDeviceData(0xA0, DEVICE_INTERNAL_ADDRESS_ACCELEROMETER).byteDataArray;
+	/* Transmit the 4 bytes of the float */
+	UART_transmit(byteDataArray[0]);
+	UART_transmit(byteDataArray[1]);
+	UART_transmit(byteDataArray[2]);
+	UART_transmit(byteDataArray[3]);
+	// Transmit end of frame
+	UART_transmit(DEVICE_DATA_FRAME_END_DELIMITER);
+	
 }
