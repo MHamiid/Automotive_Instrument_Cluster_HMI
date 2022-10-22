@@ -59,8 +59,9 @@ Window
                 // Convert (G)s to (km/h)/s
                 var KMHPerS = serial.accelerometer * 35.30394
 
-                // Update the current velocity
-                speedometer.velocity = speedometer.velocity + KMHPerS
+                // Update the current velocity while keeping the max (speed) to 180, if exceeded we just ignore the accelerometer value
+                // Set a cap for min/max velocity to -180/180 for both directions of the velocity
+                speedometer.velocity = speedometer.velocity >= 0 ? Math.min(180, speedometer.velocity + KMHPerS) : Math.max(-180, speedometer.velocity + KMHPerS)
             }
         }
 
