@@ -14,6 +14,7 @@ Window
     Rectangle
     {
         property real velocity: 0
+        property double fillPosition: 0.3
         id: speedometer
         width: 300
         height: 300
@@ -23,6 +24,17 @@ Window
         color: "transparent"
         border.color: "lightgreen"
         border.width: 5
+        gradient: Gradient
+                  {
+                    /**
+                      * The (+/-)0.0001 to ensure the color gradiant has the min value when (speed.speedValue = 0),
+                      * otherwise this GradientStop mostly would be ignored and give incorrect result
+                     */
+                    GradientStop { position: 0.0; color: speedometer.border.color }
+                    GradientStop { position: ((speed.speedValue * speedometer.fillPosition) / 180) + 0.0001; color: "black" }
+                    GradientStop { position: (1.0 - ((speed.speedValue * speedometer.fillPosition) / 180)) - 0.0001; color: "black" }
+                    GradientStop { position: 1.0; color: speedometer.border.color }
+                  }
 
         Serial
         {
