@@ -14,7 +14,7 @@ Window
     Rectangle
     {
         property real velocity: 0
-        property double fillPosition: 0.3
+        readonly property double fillPosition: 0.3
         id: speedometer
         width: 300
         height: 300
