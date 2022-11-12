@@ -15,6 +15,7 @@ Window
     {
         property real velocity: 0
         readonly property double fillPosition: 0.3
+        readonly property int maxSpeed: 180
         id: speedometer
         width: 300
         height: 300
@@ -31,8 +32,8 @@ Window
                       * otherwise this GradientStop mostly would be ignored and give incorrect result
                      */
                     GradientStop { position: 0.0; color: speedometer.border.color }
-                    GradientStop { position: ((speed.speedValue * speedometer.fillPosition) / 180) + 0.0001; color: "black" }
-                    GradientStop { position: (1.0 - ((speed.speedValue * speedometer.fillPosition) / 180)) - 0.0001; color: "black" }
+                    GradientStop { position: ((speed.speedValue * speedometer.fillPosition) / speedometer.maxSpeed) + 0.0001; color: "black" }
+                    GradientStop { position: (1.0 - ((speed.speedValue * speedometer.fillPosition) / speedometer.maxSpeed)) - 0.0001; color: "black" }
                     GradientStop { position: 1.0; color: speedometer.border.color }
                   }
 
@@ -71,9 +72,9 @@ Window
                 // Convert (G)s to (km/h)/s
                 var KMHPerS = serial.accelerometer * 35.30394
 
-                // Update the current velocity while keeping the max (speed) to 180, if exceeded we just ignore the accelerometer value
-                // Set a cap for min/max velocity to -180/180 for both directions of the velocity
-                speedometer.velocity = speedometer.velocity >= 0 ? Math.min(180, speedometer.velocity + KMHPerS) : Math.max(-180, speedometer.velocity + KMHPerS)
+                // Update the current velocity while keeping the max (speed) to speedometer.maxSpeed, if exceeded we just ignore the accelerometer value
+                // Set a cap for min/max velocity to -speedometer.maxSpeed/speedometer.maxSpeed for both directions of the velocity
+                speedometer.velocity = speedometer.velocity >= 0 ? Math.min(speedometer.maxSpeed, speedometer.velocity + KMHPerS) : Math.max(-speedometer.maxSpeed, speedometer.velocity + KMHPerS)
             }
         }
 
