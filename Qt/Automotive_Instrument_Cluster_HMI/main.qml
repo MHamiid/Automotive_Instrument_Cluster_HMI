@@ -91,6 +91,11 @@ Window
             font.pixelSize: 80
             antialiasing: true
 
+            Behavior on speedValue
+            {
+                NumberAnimation { duration: 1000 }
+            }
+
             Text
             {
                 id: speedUnit
