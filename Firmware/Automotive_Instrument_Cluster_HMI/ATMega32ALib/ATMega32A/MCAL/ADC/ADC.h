@@ -11,8 +11,8 @@
 
 #include <stdint.h>
 
-#define ADC_VREF	5				// 5 Volts
-#define ADC_STEP	ADC_VREF / 1024.0	// VREF / 2^10 (As the ADC is a 10-bit ADC) 
+#define ADC_VREF	5						// 5 Volts
+#define ADC_STEP	(ADC_VREF / 1024.0)		// ADC_VREF / 2^10 (As the ADC is a 10-bit ADC) 
 
 typedef enum EN_ADCChannel_t
 {
