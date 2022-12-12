@@ -9,17 +9,6 @@
 #ifndef TWI_H_
 #define TWI_H_
 
-#ifndef F_CPU
-/* prevent compiler error by supplying a default F_CPU */
-# warning "F_CPU not defined for <ATMega32A/MCAL/TWI/TWI.h>. Using 1 MHz as a default F_CPU"
-
-/**
-  * The value 1 MHz only provided as a fall back 
-  * if no user-provided definition could be found
-*/
-# define F_CPU 1000000UL
-#endif
-
 #include <stdint.h>
 #include <stdbool.h>
 

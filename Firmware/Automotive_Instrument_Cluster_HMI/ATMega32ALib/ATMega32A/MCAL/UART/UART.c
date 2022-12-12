@@ -6,10 +6,22 @@
  */ 
 
 #include "UART.h"
+#include "../../Config/Config.h"
 #include "../../Utilities/registers.h"
 #include "../../Utilities/interrupt.h"
 #include <math.h>
 #include <stdio.h>  // For using size_t
+
+#ifndef F_CPU
+/* prevent compiler error by supplying a default F_CPU */
+# warning "F_CPU not defined for <ATMega32A/MCAL/TWI/TWI.c>. Using 1 MHz as a default F_CPU. Maybe try to #include <Config/Config.h>."
+
+/**
+  * The value 1 MHz only provided as a fall back 
+  * if no user-provided definition could be found
+*/
+# define F_CPU 1000000UL
+#endif
 
 /**
  * Calculate the value for the UBRR register from the baud rate, returns value type (double)

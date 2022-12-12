@@ -134,9 +134,13 @@
     <Folder Include="ATMega32A\MCAL\TWI" />
     <Folder Include="ATMega32A\MCAL\UART\" />
     <Folder Include="ATMega32A\ECUAL" />
+    <Folder Include="ATMega32A\Config" />
     <Folder Include="ATMega32A\Utilities\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMega32A\Config\Config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ATMega32A\ECUAL\Accelerometer\Accelerometer.c">
       <SubType>compile</SubType>
     </Compile>
