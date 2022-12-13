@@ -20,7 +20,7 @@ EN_DIOErrorStatus_t DIO_init(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODir
 	// Validate the pin number
 	if(!(pinNumber >= DIO_PIN_0 && pinNumber <= DIO_PIN_7))
 	{
-		return DIO_INVALID_PIN_NUMBER;
+		return DIO_ERROR_INVALID_PIN_NUMBER;
 	}
 	
 	switch(port)
@@ -29,73 +29,73 @@ EN_DIOErrorStatus_t DIO_init(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODir
 			if(direction == DIO_DIRECTION_INPUT)
 			{
 				BIT_CLEAR(DDRA, pinNumber);    // Set pin direction to input
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(direction == DIO_DIRECTION_OUTPUT)
 			{
 				BIT_SET(DDRA, pinNumber);      // Set pin direction to output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Direction error handling
-				return DIO_INVALID_DIRECTION;
+				return DIO_ERROR_INVALID_DIRECTION;
 			}
 		
 		case DIO_PORT_B:
 			if(direction == DIO_DIRECTION_INPUT)
 			{
 				BIT_CLEAR(DDRB, pinNumber);    // Set pin direction to input
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(direction == DIO_DIRECTION_OUTPUT)
 			{
 				BIT_SET(DDRB, pinNumber);      // Set pin direction to output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Direction error handling
-				return DIO_INVALID_DIRECTION;
+				return DIO_ERROR_INVALID_DIRECTION;
 			}
 		
 		case DIO_PORT_C:
 			if(direction == DIO_DIRECTION_INPUT)
 			{
 				BIT_CLEAR(DDRC, pinNumber);    // Set pin direction to input
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(direction == DIO_DIRECTION_OUTPUT)
 			{
 				BIT_SET(DDRC, pinNumber);      // Set pin direction to output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// direction Error handling
-				return DIO_INVALID_DIRECTION;
+				return DIO_ERROR_INVALID_DIRECTION;
 			}
 		
 		case DIO_PORT_D:
 			if(direction == DIO_DIRECTION_INPUT)
 			{
 				BIT_CLEAR(DDRD, pinNumber);    // Set pin direction to input
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(direction == DIO_DIRECTION_OUTPUT)
 			{
 				BIT_SET(DDRD, pinNumber);      // Set pin direction to output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Direction error handling
-				return DIO_INVALID_DIRECTION;
+				return DIO_ERROR_INVALID_DIRECTION;
 			}
 		
 		default:
 			// Port Number error handling
-			return DIO_INVALID_PORT;
+			return DIO_ERROR_INVALID_PORT;
 	}
 }
 
@@ -104,7 +104,7 @@ EN_DIOErrorStatus_t DIO_write(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODi
 	// Validate the pin number
 	if(!(pinNumber >= DIO_PIN_0 && pinNumber <= DIO_PIN_7))
 	{
-		return DIO_INVALID_PIN_NUMBER;
+		return DIO_ERROR_INVALID_PIN_NUMBER;
 	}
 	
 	switch(port)
@@ -113,73 +113,73 @@ EN_DIOErrorStatus_t DIO_write(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODi
 			if(digitalValue == DIO_LOW)
 			{
 				BIT_CLEAR(PORTA, pinNumber);    // Write 0 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(digitalValue == DIO_HIGH)
 			{
 				BIT_SET(PORTA, pinNumber);      // Write 1 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Digital output value error handling
-				return DIO_INVALID_DIGITAL_VALUE;
+				return DIO_ERROR_INVALID_DIGITAL_VALUE;
 			}
 		
 		case DIO_PORT_B:
 			if(digitalValue == DIO_LOW)
 			{
 				BIT_CLEAR(PORTB, pinNumber);    // Write 0 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(digitalValue == DIO_HIGH)
 			{
 				BIT_SET(PORTB, pinNumber);      // Write 1 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Digital value error handling
-				return DIO_INVALID_DIGITAL_VALUE;
+				return DIO_ERROR_INVALID_DIGITAL_VALUE;
 			}
 		
 		case DIO_PORT_C:
 			if(digitalValue == DIO_LOW)
 			{
 				BIT_CLEAR(PORTC, pinNumber);    // Write 0 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(digitalValue == DIO_HIGH)
 			{
 				BIT_SET(PORTC, pinNumber);      // Write 1 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Digital output value error handling
-				return DIO_INVALID_DIGITAL_VALUE;
+				return DIO_ERROR_INVALID_DIGITAL_VALUE;
 			}
 		
 		case DIO_PORT_D:
 			if(digitalValue == DIO_LOW)
 			{
 				BIT_CLEAR(PORTD, pinNumber);    // Write 0 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else if(digitalValue == DIO_HIGH)
 			{
 				BIT_SET(PORTD, pinNumber);      // Write 1 to the pin output
-				return DIO_NO_ERROR;
+				return DIO_ERROR_NONE;
 			}
 			else
 			{
 				// Digital output value error handling
-				return DIO_INVALID_DIGITAL_VALUE;
+				return DIO_ERROR_INVALID_DIGITAL_VALUE;
 			}
 		
 		default:
 			// Port Number error handling
-			return DIO_INVALID_PORT;
+			return DIO_ERROR_INVALID_PORT;
 	}
 }
 
@@ -188,30 +188,30 @@ EN_DIOErrorStatus_t DIO_toggle(EN_DIOPort_t port, EN_DIOPin_t pinNumber)
 	// Validate the pin number
 	if(!(pinNumber >= DIO_PIN_0 && pinNumber <= DIO_PIN_7))
 	{
-		return DIO_INVALID_PIN_NUMBER;
+		return DIO_ERROR_INVALID_PIN_NUMBER;
 	}
 	
 	switch(port)
 	{
 		case DIO_PORT_A:
 			BIT_TOGGLE(PORTA, pinNumber);     // Toggle the current pin state
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_PORT_B:
 			BIT_TOGGLE(PORTB, pinNumber);     // Toggle the current pin state
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_PORT_C:
 			BIT_TOGGLE(PORTC, pinNumber);     // Toggle the current pin state
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_PORT_D:
 			BIT_TOGGLE(PORTD, pinNumber);     // Toggle the current pin state
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		default:
 			// Port Number error handling
-			return DIO_INVALID_PORT;
+			return DIO_ERROR_INVALID_PORT;
 	}
 }
 
@@ -220,30 +220,30 @@ EN_DIOErrorStatus_t DIO_read(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODig
 	// Validate the pin number
 	if(!(pinNumber >= DIO_PIN_0 && pinNumber <= DIO_PIN_7))
 	{
-		return DIO_INVALID_PIN_NUMBER;
+		return DIO_ERROR_INVALID_PIN_NUMBER;
 	}
 	
 	switch(port)
 	{
 		case DIO_PORT_A:
 			*retDigitalValue = BIT_READ(PINA, pinNumber);		// Read pin bit ===> 0 (DIO_LOW) or 1 (DIO_HIGH)
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_PORT_B:
 			*retDigitalValue = BIT_READ(PINB, pinNumber);		// Read pin bit ===> 0 (DIO_LOW) or 1 (DIO_HIGH)
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_PORT_C:
 			*retDigitalValue = BIT_READ(PINC, pinNumber);		// Read pin bit ===> 0 (DIO_LOW) or 1 (DIO_HIGH)
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_PORT_D:
 			*retDigitalValue = BIT_READ(PIND, pinNumber);		// Read pin bit ===> 0 (DIO_LOW) or 1 (DIO_HIGH)
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		default:
 			// Port Number error handling
-			return DIO_INVALID_PORT;
+			return DIO_ERROR_INVALID_PORT;
 	}
 }
 
@@ -283,13 +283,13 @@ EN_DIOErrorStatus_t DIO_enableExternalInterrupt(EN_DIOExternalInterrupt_t extern
 			}
 			else
 			{
-				return DIO_INVALID_EXTERNAL_INTERRUPT_SENSE;
+				return DIO_ERROR_INVALID_EXTERNAL_INTERRUPT_SENSE;
 			}
 			
 			// Enable external interrupt 0 - INT0
 			BIT_SET(GICR, INT0);
 		
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_INT1:
 			/* Initialize External Interrupts for INT1 */
@@ -320,13 +320,13 @@ EN_DIOErrorStatus_t DIO_enableExternalInterrupt(EN_DIOExternalInterrupt_t extern
 			}
 			else
 			{
-				return DIO_INVALID_EXTERNAL_INTERRUPT_SENSE;
+				return DIO_ERROR_INVALID_EXTERNAL_INTERRUPT_SENSE;
 			}
 			
 			// Enable external interrupt 1 - INT1
 			BIT_SET(GICR, INT1);
 		
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_INT2:
 			/* Initialize External Interrupts for INT2 */
@@ -345,17 +345,17 @@ EN_DIOErrorStatus_t DIO_enableExternalInterrupt(EN_DIOExternalInterrupt_t extern
 			}
 			else
 			{
-				return DIO_INVALID_EXTERNAL_INTERRUPT_SENSE;
+				return DIO_ERROR_INVALID_EXTERNAL_INTERRUPT_SENSE;
 			}
 		
 			// Enable external interrupt 2 - INT2
 			BIT_SET(GICR, INT2);
 		
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		default:
 			// External interrupt type error handling
-			return DIO_INVALID_INTERRUPT_TYPE;
+			return DIO_ERROR_INVALID_INTERRUPT_TYPE;
 	}
 }
 
@@ -367,23 +367,23 @@ EN_DIOErrorStatus_t DIO_disableExternalInterrupt(EN_DIOExternalInterrupt_t exter
 			// Disable external interrupt 0 - INT0
 			BIT_CLEAR(GICR, INT0);
 		
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_INT1:
 			// Disable external interrupt 1 - INT1
 			BIT_CLEAR(GICR, INT1);
 		
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		case DIO_INT2:
 			// Disable external interrupt 2 - INT2
 			BIT_CLEAR(GICR, INT2);
 		
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		default:
 			// External interrupt type error handling
-			return DIO_INVALID_INTERRUPT_TYPE;
+			return DIO_ERROR_INVALID_INTERRUPT_TYPE;
 	}
 }
 
@@ -394,21 +394,21 @@ EN_DIOErrorStatus_t DIO_setExternalInterruptCallback(EN_DIOExternalInterrupt_t e
 		case DIO_INT0:
 			INT0_CALLBACK_FUNCTION = callbackFunction;
 			
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 			
 		case DIO_INT1:
 			INT1_CALLBACK_FUNCTION = callbackFunction;
 			
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 			
 		case DIO_INT2:
 			INT2_CALLBACK_FUNCTION = callbackFunction;
 			
-			return DIO_NO_ERROR;
+			return DIO_ERROR_NONE;
 		
 		default:
 			// External interrupt type error handling
-			return DIO_INVALID_INTERRUPT_TYPE;
+			return DIO_ERROR_INVALID_INTERRUPT_TYPE;
 	}
 }
 
