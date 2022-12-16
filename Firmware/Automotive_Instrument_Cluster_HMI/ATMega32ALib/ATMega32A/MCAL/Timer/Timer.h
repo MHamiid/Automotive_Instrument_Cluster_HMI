@@ -68,7 +68,7 @@ EN_TimerErrorStatus_t timer_init(EN_Timer_t timer, EN_TimerMode_t timerMode, EN_
  * @param timer                                      Timer to be used for delay generation
  * @param delay_ms                                   Delay in milliseconds
  *
- * @return TIMER_ERROR_NONE                          Dlay is generated successfully
+ * @return TIMER_ERROR_NONE                          Delay is generated successfully
  * @return TIMER_ERROR_INVALID_TIMER                 Invalid timer type
  * @return TIMER_ERROR_INVALID_TIMER_MODE            Invalid timer mode or unsupported timer mode for delay generation
  */
