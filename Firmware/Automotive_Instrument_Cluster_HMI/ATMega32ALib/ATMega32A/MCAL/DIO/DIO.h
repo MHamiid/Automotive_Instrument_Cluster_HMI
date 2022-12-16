@@ -77,53 +77,53 @@ typedef enum EN_DIOErrorStatus_t
 /**
  * @brief Initialize a DIO Pin in the specified Port by setting its direction
  * 
- * @param port							The Port where the Pin is located
- * @param pinNumber						The Pin Number in the Port
- * @param direction						Pin Direction
+ * @param port							    The Port where the Pin is located
+ * @param pinNumber						    The Pin Number in the Port
+ * @param direction						    Pin Direction
  *
- * @return DIO_NO_ERROR					Initialization was successful
- * @return DIO_INVALID_PIN_NUMBER		Initialization failed, invalid pin number
- * @return DIO_INVALID_DIRECTION		Initialization failed, invalid direction
- * @return DIO_INVALID_PORT				Initialization failed, invalid port
+ * @return DIO_ERROR_NONE					Initialization was successful
+ * @return DIO_ERROR_INVALID_PIN_NUMBER		Initialization failed, invalid pin number
+ * @return DIO_ERROR_INVALID_DIRECTION		Initialization failed, invalid direction
+ * @return DIO_ERROR_INVALID_PORT		    Initialization failed, invalid port
  */
 EN_DIOErrorStatus_t DIO_init(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODirection_t direction);
 
 /**
  * @brief Write a digital output value to the DIO Pin in the specified Port
  * 
- * @param port							The port where the pin is located
- * @param pinNumber						The pin number in the port
- * @param digitalValue					Digital output value
+ * @param port						     	The port where the pin is located
+ * @param pinNumber					     	The pin number in the port
+ * @param digitalValue				    	Digital output value
  *
- * @return DIO_NO_ERROR					Digital Write was successful
- * @return DIO_INVALID_PIN_NUMBER		Digital Write failed, invalid pin number
- * @return DIO_INVALID_DIGITAL_VALUE	Digital Write failed, invalid digital value
- * @return DIO_INVALID_PORT				Digital Write failed, invalid port
+ * @return DIO_ERROR_NONE					Digital Write was successful
+ * @return DIO_ERROR_INVALID_PIN_NUMBER		Digital Write failed, invalid pin number
+ * @return DIO_ERROR_INVALID_DIGITAL_VALUE	Digital Write failed, invalid digital value
+ * @return DIO_ERROR_INVALID_PORT		    Digital Write failed, invalid port
  */
 EN_DIOErrorStatus_t DIO_write(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODigitalValue_t digitalValue);
 
 /**
  * @brief Toggle the current digital value of a DIO Pin in the specified Port
  * 
- * @param port							The port where the pin is located
- * @param pinNumber						The pin number in the port
+ * @param port						    	The port where the pin is located
+ * @param pinNumber						    The pin number in the port
  *
- * @return DIO_NO_ERROR					Digital Toggle was successful
- * @return DIO_INVALID_PIN_NUMBER		Digital Toggle failed, invalid pin number
- * @return DIO_INVALID_PORT				Digital Toggle failed, invalid port
+ * @return DIO_ERROR_NONE					Digital Toggle was successful
+ * @return DIO_ERROR_INVALID_PIN_NUMBER		Digital Toggle failed, invalid pin number
+ * @return DIO_ERROR_INVALID_PORT		    Digital Toggle failed, invalid port
  */
 EN_DIOErrorStatus_t DIO_toggle(EN_DIOPort_t port, EN_DIOPin_t pinNumber);
 
 /**
  * @brief Read the current digital value of a DIO Pin in the specified Port
  * 
- * @param port							The port where the pin is located
- * @param pinNumber						The pin number in the port
- * @param retDigitalValue				The read digital value
+ * @param port							   The port where the pin is located
+ * @param pinNumber						   The pin number in the port
+ * @param retDigitalValue			       The read digital value
  *
- * @return DIO_NO_ERROR					Digital Read was successful
- * @return DIO_INVALID_PIN_NUMBER		Digital Read failed, invalid pin number
- * @return DIO_INVALID_PORT				Digital Read failed, invalid port
+ * @return DIO_ERROR_NONE				   Digital Read was successful
+ * @return DIO_ERROR_INVALID_PIN_NUMBER	   Digital Read failed, invalid pin number
+ * @return DIO_ERROR_INVALID_PORT		   Digital Read failed, invalid port
  */
 EN_DIOErrorStatus_t DIO_read(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODigitalValue_t* retDigitalValue);
 
@@ -132,33 +132,33 @@ EN_DIOErrorStatus_t DIO_read(EN_DIOPort_t port, EN_DIOPin_t pinNumber, EN_DIODig
  * 
  *	Note that (DIO_INT2) has only two possible interrupt senses [ DIO_EXTERNAL_INT_FALLING_EDGE, DIO_EXTERNAL_INT_RISING_EDGE ]
  *
- * @param externalInterruptType						The External Interrupt to be enabled
- * @param externalInterruptSense					Interrupt sense type
+ * @param externalInterruptType						        The External Interrupt to be enabled
+ * @param externalInterruptSense				        	Interrupt sense type
  *
- * @return DIO_NO_ERROR								External Interrupt enable was successful
- * @return DIO_INVALID_EXTERNAL_INTERRUPT_SENSE		External Interrupt enable failed, invalid external interrupt sense
- * @return DIO_INVALID_INTERRUPT_TYPE				External Interrupt enable failed, invalid external interrupt type
+ * @return DIO_ERROR_NONE								    External Interrupt enable was successful
+ * @return DIO_ERROR_INVALID_EXTERNAL_INTERRUPT_SENSE		External Interrupt enable failed, invalid external interrupt sense
+ * @return DIO_ERROR_INVALID_INTERRUPT_TYPE				    External Interrupt enable failed, invalid external interrupt type
  */
 EN_DIOErrorStatus_t DIO_enableExternalInterrupt(EN_DIOExternalInterrupt_t externalInterruptType, EN_DIOExternalInterruptSense_t externalInterruptSense);
 
 /**
  * @brief Disable External Interrupt for the specified DIO external interrupt type
  * 
- * @param externalInterruptType					The External Interrupt to be disabled
+ * @param externalInterruptType					    The External Interrupt to be disabled
  *
- * @return DIO_NO_ERROR							External Interrupt disable was successful
- * @return DIO_INVALID_INTERRUPT_TYPE			External Interrupt disable failed, invalid external interrupt type
+ * @return DIO_ERROR_NONE							External Interrupt disable was successful
+ * @return DIO_ERROR_INVALID_INTERRUPT_TYPE			External Interrupt disable failed, invalid external interrupt type
  */
 EN_DIOErrorStatus_t DIO_disableExternalInterrupt(EN_DIOExternalInterrupt_t externalInterruptType);
 
 /**
  * @brief Set a callback function to be called inside the ISR for the specified DIO external interrupt type
  * 
- * @param externalInterruptType			The External Interrupt to set the callback function
- * @param callbackFunction				void function will be called when the ISR for the External Interrupt is called
+ * @param externalInterruptType			    The External Interrupt to set the callback function
+ * @param callbackFunction				    void function will be called when the ISR for the External Interrupt is called
  *
- * @return DIO_NO_ERROR					Setting a callback function for the External Interrupt was successful
- * @return DIO_INVALID_INTERRUPT_TYPE	Setting a callback function for the External Interrupt failed, invalid external interrupt type
+ * @return DIO_ERROR_NONE					Setting a callback function for the External Interrupt was successful
+ * @return DIO_ERROR_INVALID_INTERRUPT_TYPE	Setting a callback function for the External Interrupt failed, invalid external interrupt type
  */
 EN_DIOErrorStatus_t DIO_setExternalInterruptCallback(EN_DIOExternalInterrupt_t externalInterruptType, void(*callbackFunction)());
 
