@@ -44,6 +44,16 @@
 /************************************************************************/
 
 #define TIFR	(*((volatile uint8_t*)0x58))
+/* TIFR Bits */
+#define TOV0    0
+#define OCF0    1
+#define TOV1    2
+#define OCF1B   3
+#define OCF1A   4
+#define ICF1    5
+#define TOV2    6
+#define OCF2    7
+
 /* Timer 0 */
 #define TCNT0	(*((volatile uint8_t*)0x52))
 #define OCR0	(*((volatile uint8_t*)0x5C))
