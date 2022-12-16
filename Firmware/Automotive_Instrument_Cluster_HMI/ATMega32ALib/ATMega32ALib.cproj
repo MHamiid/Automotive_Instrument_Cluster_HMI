@@ -130,6 +130,7 @@
     <Folder Include="ATMega32A\MCAL\" />
     <Folder Include="ATMega32A\MCAL\DIO" />
     <Folder Include="ATMega32A\MCAL\ADC" />
+    <Folder Include="ATMega32A\MCAL\Timer" />
     <Folder Include="ATMega32A\MCAL\PWM" />
     <Folder Include="ATMega32A\MCAL\TWI" />
     <Folder Include="ATMega32A\MCAL\UART\" />
@@ -181,6 +182,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATMega32A\MCAL\PWM\PWM.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\MCAL\Timer\Timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ATMega32A\MCAL\Timer\Timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATMega32A\MCAL\TWI\TWI.c">
