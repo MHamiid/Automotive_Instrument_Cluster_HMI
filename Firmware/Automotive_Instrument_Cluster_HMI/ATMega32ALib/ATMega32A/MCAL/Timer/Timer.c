@@ -8,7 +8,6 @@
 #include "Timer.h"
 #include "../../Config/Config.h"
 #include "../../Utilities/registers.h"
-#include "../../Utilities/interrupt.h"
 #include "../../Utilities/bit.h"
 #include <math.h>
 
