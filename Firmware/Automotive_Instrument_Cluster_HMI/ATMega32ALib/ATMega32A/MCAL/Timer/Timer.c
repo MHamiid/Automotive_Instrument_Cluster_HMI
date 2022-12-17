@@ -180,7 +180,7 @@ EN_TimerErrorStatus_t timer_init(EN_Timer_t timer, EN_TimerMode_t timerMode, EN_
 					break;
 				
 				case TIMER_CLOCK_SOURCE_PRESCALER_32:
-					// Set clock source to clock with clock/64 prescaler
+					// Set clock source to clock with clock/32 prescaler
 					TCCR2 |= (1<<CS20) | (1<<CS21);
 					BIT_CLEAR(TCCR2, CS22);
 				
@@ -190,7 +190,7 @@ EN_TimerErrorStatus_t timer_init(EN_Timer_t timer, EN_TimerMode_t timerMode, EN_
 					break;
 				
 				case TIMER_CLOCK_SOURCE_PRESCALER_64:
-					// Set clock source to clock with clock/256 prescaler
+					// Set clock source to clock with clock/64 prescaler
 					TCCR2 &= ~(1<<CS20) & ~(1<<CS21);
 					BIT_SET(TCCR2, CS22);
 				
@@ -200,7 +200,7 @@ EN_TimerErrorStatus_t timer_init(EN_Timer_t timer, EN_TimerMode_t timerMode, EN_
 					break;
 				
 				case TIMER_CLOCK_SOURCE_PRESCALER_128:
-					// Set clock source to clock with clock/1024 prescaler
+					// Set clock source to clock with clock/128 prescaler
 					TCCR2 |= (1<<CS20) | (1<<CS22);
 					BIT_CLEAR(TCCR2, CS21);
 				
@@ -210,7 +210,7 @@ EN_TimerErrorStatus_t timer_init(EN_Timer_t timer, EN_TimerMode_t timerMode, EN_
 					break;
 				
 				case TIMER_CLOCK_SOURCE_PRESCALER_256:
-					// Set clock source to external clock on T2 pin. Clock on falling edge
+					// Set clock source to clock with clock/256 prescaler
 					TCCR2 |= (1<<CS21) | (1<<CS22);
 					BIT_CLEAR(TCCR2, CS20);
 				
@@ -220,7 +220,7 @@ EN_TimerErrorStatus_t timer_init(EN_Timer_t timer, EN_TimerMode_t timerMode, EN_
 					break;
 				
 				case TIMER_CLOCK_SOURCE_PRESCALER_1024:
-					// Set clock source to external clock on T2 pin. Clock on rising edge
+					// Set clock source to clock with clock/1024 prescaler
 					TCCR2 |= (1<<CS20) | (1<<CS21) | (1<<CS22);
 				
                     // Set the initialized clock source input for timer2
